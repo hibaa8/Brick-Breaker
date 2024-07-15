@@ -1,3 +1,4 @@
+package src;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -10,6 +11,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import java.io.*;
+import java.util.*;
 
 public class LoginPage implements ActionListener {
     private JFrame frame = new JFrame();
@@ -24,10 +27,9 @@ public class LoginPage implements ActionListener {
     private HashMap<String, String> loginInfo = new HashMap<String, String>();
     private String username;
     private String password;
+    private static final String USERS_FILE = "users.txt";
 
     public LoginPage() {
-        loginInfo.put("Hiba", "123");
-        loginInfo.put("Samantha", "1234");
 
         loginLabel.setBounds(125, 30, 200, 35);
         loginLabel.setFont(new Font(null, Font.BOLD, 25));
@@ -66,6 +68,19 @@ public class LoginPage implements ActionListener {
         frame.setVisible(true);
     }
 
+
+
+    private void saveUsers() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(USERS_FILE))) {
+            for (HashMap.Entry<String, String> entry : loginInfo.entrySet()) {
+                writer.write(entry.getKey() + "," + entry.getValue());
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void startGame() {
         JFrame frame = new JFrame("Brick Breaker");
         // JFrame frame = new Game();
@@ -78,37 +93,44 @@ public class LoginPage implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == signUp) {
-            boolean userFound = false;
-            String inputtedUser = String.valueOf(userField.getText());
-            // enhanced for loop
-            for (String user : loginInfo.keySet()) {
-                if (user.equals(inputtedUser)) {
-                    userFound = true;
-                    messageLabel.setForeground(Color.red);
-                    messageLabel.setText("Username already taken");
-                    System.out.println(userFound);
-                }
-            }
-            if (!userFound) {
-                username = inputtedUser;
-            }
+        username = String.valueOf(userField.getText());
+        password = String.valueOf(userPassword.getPassword());
+        
 
-            password = String.valueOf(userPassword.getPassword());
-            if (!username.equals("") && !password.equals("")) {
-                loginInfo.put(username, password);
-                messageLabel.setForeground(Color.green);
-                messageLabel.setText("Login successful");
-                startGame();
-            }
+        if (e.getSource() == signUp) {
+            loginInfo.put(username, password);
+            saveUsers();
+
+            messageLabel.setForeground(Color.green);
+            messageLabel.setText("Login successful");
+            startGame();
+            // boolean userFound = false;
+            // String inputtedUser = String.valueOf(userField.getText());
+            // // enhanced for loop
+            // for (String user : loginInfo.keySet()) {
+            //     if (user.equals(inputtedUser)) {
+            //         userFound = true;
+            //         messageLabel.setForeground(Color.red);
+            //         messageLabel.setText("Username already taken");
+            //         System.out.println(userFound);
+            //     }
+            // }
+            // if (!userFound) {
+            //     username = inputtedUser;
+            // }
+
+            // password = String.valueOf(userPassword.getPassword());
+            // if (!username.equals("") && !password.equals("")) {
+            //     loginInfo.put(username, password);
+            //     messageLabel.setForeground(Color.green);
+            //     messageLabel.setText("Login successful");
+            //     startGame();
+            // }
         }
 
         if (e.getSource() == loginBt) {
-            username = userField.getText();
-            password = String.valueOf(userPassword.getPassword());
             if (loginInfo.containsKey(username)) {
                 if (loginInfo.get(username).equals(password)) {
-
                     frame.dispose();
                     startGame();
                 } else {

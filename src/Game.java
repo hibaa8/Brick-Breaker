@@ -1,3 +1,4 @@
+package src;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -25,8 +26,8 @@ public class Game extends JPanel implements KeyListener, ActionListener {
   private int player = 310;
   private int ballX = 250;
   private int ballY = 350;
-  private double ballDirX = -4;
-  private double ballDirY = -5;
+  private double ballDirX = -1;
+  private double ballDirY = -1.5;
   private Map grid;
   private int lives = 3;
   private int level = 1;
@@ -51,7 +52,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
     setFocusTraversalKeysEnabled(false);
     timer = new Timer(delay, this);
     timer.start();
-    playNoise("bgm.wav");
+    playNoise("../media/bgm.wav");
   }
 
   public static void playNoise(String musicLocation) {
@@ -184,7 +185,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
             Rectangle ball = new Rectangle(ballX, ballY, 20, 20);
             Rectangle brickRect = rect;
             if (ball.intersects(brickRect)) {
-              playNoise("pop.wav");
+              playNoise("../media/pop.wav");
               brick.setNumHits(brick.getNumHits() - 1);
               numBricks--;
               score += 5;
@@ -256,20 +257,20 @@ public class Game extends JPanel implements KeyListener, ActionListener {
     score = 0;
     player = 310;
     if (level == 1) {
-      ballDirX = -4;
-      ballDirY = -5;
+      ballDirX = -1;
+      ballDirY = -1.5;
       numBricks = 24;
       paddle_width = 180;
       grid = new Map(3, 8, 1);
     } else if (level == 2) {
-      ballDirX = -4.5;
-      ballDirY = -5.5;
+      ballDirX = -2;
+      ballDirY = -2.5;
       numBricks = 72;
       paddle_width = 170;
       grid = new Map(4, 9, 2);
     } else if (level == 3) {
-      ballDirX = -5;
-      ballDirY = -6;
+      ballDirX = -3;
+      ballDirY = -3.5;
       numBricks = 100;
       paddle_width = 150;
       grid = new Map(5, 10, 2);
@@ -348,22 +349,22 @@ public class Game extends JPanel implements KeyListener, ActionListener {
   public void right() {
     play = true;
     if (level == 1) {
-      player += 20;
+      player += 80;
     } else if (level == 2) {
-      player += 40;
+      player += 140;
     } else {
-      player += 50;
+      player += 200;
     }
   }
 
   public void left() {
     play = true;
     if (level == 1) {
-      player -= 20;
+      player -= 80;
     } else if (level == 2) {
-      player -= 40;
+      player -= 140;
     } else {
-      player -= 50;
+      player -= 200;
     }
   }
 

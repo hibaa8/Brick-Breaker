@@ -1,7 +1,7 @@
-
+package src;
 public class Main {
   public static void main(String[] args) {
-    LoginPage loginPage = new LoginPage();
+    LoginPage l = new LoginPage();
 
   }
 }
