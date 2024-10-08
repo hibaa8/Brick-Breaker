@@ -104,28 +104,7 @@ public class LoginPage implements ActionListener {
             messageLabel.setForeground(Color.green);
             messageLabel.setText("Login successful");
             startGame();
-            // boolean userFound = false;
-            // String inputtedUser = String.valueOf(userField.getText());
-            // // enhanced for loop
-            // for (String user : loginInfo.keySet()) {
-            //     if (user.equals(inputtedUser)) {
-            //         userFound = true;
-            //         messageLabel.setForeground(Color.red);
-            //         messageLabel.setText("Username already taken");
-            //         System.out.println(userFound);
-            //     }
-            // }
-            // if (!userFound) {
-            //     username = inputtedUser;
-            // }
-
-            // password = String.valueOf(userPassword.getPassword());
-            // if (!username.equals("") && !password.equals("")) {
-            //     loginInfo.put(username, password);
-            //     messageLabel.setForeground(Color.green);
-            //     messageLabel.setText("Login successful");
-            //     startGame();
-            // }
+         
         }
 
         if (e.getSource() == loginBt) {
